@@ -1,0 +1,64 @@
+service: main
+app: demopay
+org: greedyman
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: ap-south-1
+
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+#            - "/*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+plugins:
+  - serverless-plugin-include-dependencies
+  - serverless-offline
+package:
+#  include: #include doesn't automatically exclude files
+  exclude:
+    - ./**
+  individually: true
+
+functions:
+  hello:
+    handler: src/function1/handler.hello
+    include: src/function1/**
+    events:
+      - http:
+          path: /
+          method: POST
+          integration: lambda-proxy
+
+  helloTwo:
+    handler: src/function2/handlerTwo.hello
+    include: src/function2/**
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
