@@ -18,7 +18,7 @@ Webhook calls an API gateway endpoint which in turn triggers a lambda. This lamb
 ## Receive SMS
 ![](https://www.lucidchart.com/publicSegments/view/e0595a0b-ae20-4024-9f02-22b986662ae9/image.png)
 
-Textlocal webhook makes POST request containing JSON
+Textlocal webhook makes POST request containing URL encoded string
 
 | parameter | description                                               | use                                                                     |
 |-----------|-----------------------------------------------------------|-------------------------------------------------------------------------|
@@ -30,6 +30,41 @@ Textlocal webhook makes POST request containing JSON
 | email     | Any email address extracted from the message.             | Free service provided by TextLocal. Email registration can be a feature |
 | credits   | Credits remaining in account                              | No                                                                      |
 
+
+```
+sender=919619477301&content=CQAMH%20this%20is%20body%20trial%40gmail.com&inNumber=919220592205&submit=Submit&network=&email=trial@gmail.com&keyword=CQAMH&comments=this%20is%20body%20trial%40gmail.com&credits=7&msgId=6480777653&rcvd=2020-02-08%2019%3A59%3A52&firstname=&lastname=&custom1=&custom2=&custom3=
+
+sender=919619477301&
+content=CQAMH this is body trial@gmail.com
+inNumber=919220592205
+submit=Submit
+network=
+email=trial@gmail.com
+keyword=CQAMH
+comments=this is body trial@gmail.com
+credits=7
+msgId=6480777653
+rcvd=2020-02-08 19:59:52
+firstname=
+lastname=
+custom1=
+custom2=
+custom3=
+```
+
+### Endpoint security
+Textlocal provides basic access authentication with SSL. It can send username and password through  ```Authorization``` header in following format:
+```
+Authorization: Basic <credentials>
+Authorization: Basic bXl1c2VyOm15cGFzc3dvcmQ=
+```
+<credentials> is a base64 string of format
+```
+myuser:mypassword
+```
+### Message extraction:
+1. Use 'comments': for shared number
+2. Use 'content' in case dedicated number is purchased.
 ## Send SMS
 ![](https://www.lucidchart.com/publicSegments/view/07ac2265-3dfa-443b-9385-9e5f62c70d33/image.png)
 

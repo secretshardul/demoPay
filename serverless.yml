@@ -35,30 +35,37 @@ package:
 #  include: #include doesn't automatically exclude files
   exclude:
     - ./**
-  individually: true
+#  individually: true #keep false for faster deployment during dev
 
 functions:
-  hello:
-    handler: src/function1/handler.hello
-    include: src/function1/**
+  router: #route API gateway messages
+    handler: src/router/handler.main
+#    include: src/router/**
     events:
       - http:
-          path: /
+          path: / #URL given to textLocal webhook
           method: POST
           integration: lambda-proxy
+          #custom Lambda authorizer for 'basic access authentication'.
+          authorizer:
+            name: authorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: request
 
-  helloTwo:
-    handler: src/function2/handlerTwo.hello
-    include: src/function2/**
+  authorizer: #this is a function name
+    handler: src/authorizer.handler
+    environment:
+      SMS_API_SECRET: ${param:SMS_API_SECRET}
 
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+resources:
+  Resources:
+    GatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.WWW-Authenticate: "'Basic'" #this header tells caller about authentication format
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401' #401 Unauthorized message shown if authentication invalid.

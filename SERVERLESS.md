@@ -20,7 +20,10 @@ sls package -p packageFolder #create zip package in packageFolder without deploy
 - Separate .js files: Other handlers and modules also get imported.
 
 ## Find way so that each Lambda gets only relevant files
-1. **Directory structure**: Each function handler in separate folder.
+1. ```serverless-plugin-include-dependencies``` plugin:
+It looks at import statements to automatically exclude unnecessary modules and files.
+
+2. **Directory structure**: Each function handler in separate folder.
 ```
 .
 ├── src
@@ -30,7 +33,7 @@ sls package -p packageFolder #create zip package in packageFolder without deploy
         └── handlerTwo.js
 
 ```
-All files are excluded by default. Each function includes files from its own folder only.
+All files are excluded by default. ```serverless-plugin-include-dependencies``` handles imports.
 ```yaml
 package:
   exclude:
@@ -40,13 +43,15 @@ package:
 functions:
   hello:
     handler: src/function1/handler.hello
-    include: src/function1/**
 ```
-2. **Modules**: Installed plugin ```serverless-plugin-include-dependencies``` which adds modules only to those handlers which need them.
+
+3. Packaging done individually to avoid other functions' dependencies. This can be set as false during development for faster deployment.
 
  
 # Adding modules
 Modules added using ```npm install```. node_modules folder should get uploaded.
+
+# Adding plugins
 ```shell script
 serverless plugin install --name serverless-plugin-include-dependencies
 ```
