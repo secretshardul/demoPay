@@ -38,9 +38,8 @@ functions:
       - http:
           path: / #URL given to textLocal webhook
           method: POST
-          async: true
+          async: true #immediately return 200 to textlocal API. Router invoked asynchronously.
           integration: lambda
-#          integration: lambda-proxy
           #custom Lambda authorizer for 'basic access authentication'.
           authorizer:
             name: authorizer
