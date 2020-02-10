@@ -1,0 +1,113 @@
+{
+  "resource": "/",
+  "path": "/",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "*/*",
+    "Authorization": "Basic nonWorkingTestHeader",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "IN",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Host": "t7pjrv1ag2.execute-api.ap-south-1.amazonaws.com",
+    "Via": "1.1 dc76840562be68c0220fc72e79c212b8.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "pW2MOHeampLUlLT-qrMfeXbRzM7sRTkH8q-ACBxKJFJETaIiYrOuJQ==",
+    "X-Amzn-Trace-Id": "Root=1-5e3fb370-cce1ac4522241fdbbc97de2e",
+    "X-Forwarded-For": "59.162.167.80, 70.132.7.160",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "*/*"
+    ],
+    "Authorization": [
+      "Basic nonWorkingTestHeader"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "IN"
+    ],
+    "Content-Type": [
+      "application/x-www-form-urlencoded"
+    ],
+    "Host": [
+      "t7pjrv1ag2.execute-api.ap-south-1.amazonaws.com"
+    ],
+    "Via": [
+      "1.1 dc76840562be68c0220fc72e79c212b8.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "pW2MOHeampLUlLT-qrMfeXbRzM7sRTkH8q-ACBxKJFJETaIiYrOuJQ=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5e3fb370-cce1ac4522241fdbbc97de2e"
+    ],
+    "X-Forwarded-For": [
+      "59.162.167.80, 70.132.7.160"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "52962lbin2",
+    "authorizer": {
+      "principalId": "2",
+      "integrationLatency": 42
+    },
+    "resourcePath": "/",
+    "httpMethod": "POST",
+    "extendedRequestId": "Hnj5pF9_hcwFdKw=",
+    "requestTime": "09/Feb/2020:07:23:28 +0000",
+    "path": "/dev/",
+    "accountId": "105926622732",
+    "protocol": "HTTP/1.1",
+    "stage": "dev",
+    "domainPrefix": "t7pjrv1ag2",
+    "requestTimeEpoch": 1581233008883,
+    "requestId": "87b9c6d3-c455-4fec-bbfb-139bffa00161",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "59.162.167.80",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": null,
+      "user": null
+    },
+    "domainName": "t7pjrv1ag2.execute-api.ap-south-1.amazonaws.com",
+    "apiId": "t7pjrv1ag2"
+  },
+  "body": "sender=919619477301&content=CQAMH%20passed%20message&inNumber=919220592205&submit=Submit&network=&email=none&keyword=CQAMH&comments=passed%20message&credits=6&msgId=6481046888&rcvd=2020-02-09%2012%3A53%3A28&firstname=&lastname=&custom1=&custom2=&custom3=",
+  "isBase64Encoded": false
+}
