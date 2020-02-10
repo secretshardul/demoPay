@@ -3,6 +3,7 @@
 serverless create --template aws-nodejs #initialize template
 sls invoke -f hello -d '{"sent": "mydata"}' -l #invoke Lambda function 'hello' with JSON and track logs. No API gateway.
 sls invoke local -f hello -d '{"sent": "mydata"}' -l #invoke locally
+sls invoke local -f router -p test_inputs/textlocal.json #-p to set file path
 
 curl https://52ucekeeda.execute-api.ap-south-1.amazonaws.com/dev/users/create #invoke API gateway+Lambda with CURL
 

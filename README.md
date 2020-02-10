@@ -14,6 +14,8 @@ Webhook calls an API gateway endpoint which in turn triggers a lambda. This lamb
 | ```PAY <SERVICE_CODE> <AMOUNT>``` | make payment based on service code. PAY <SERVICE_CODE> <AMOUNT>                                                                                                                             |
 | ```PASSBOOK```                    | view passbook(payment history)                                                                                                                                                              |
 
+The routing keyword is **case insensitive**.
+
 # SMS mechanism
 ## Receive SMS
 ![](https://www.lucidchart.com/publicSegments/view/e0595a0b-ae20-4024-9f02-22b986662ae9/image.png)
@@ -107,3 +109,11 @@ All responses have 200 status code. Error is identified with "code" parameter.
         - Vendor lock in.
 - Lambda: Can find if route exists from database
 Conclusion: Use Lambda for routing
+
+#User authentication
+Use **admin flow** for backend.
+1. adminGetUser: in router
+2. adminCreateUser: in register
+
+#URL encoding issue
+Non-enlish characters get encoded which increases size. Eg. ```क्या हाल है``` saved as ```%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B9%E0%A4%BE%E0%A4%B2%20%E0%A4%B9%E0%A5%88```

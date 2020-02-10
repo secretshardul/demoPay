@@ -1,0 +1,41 @@
+Resources:
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      # Generate a name based on the stage
+      UserPoolName: ${self:provider.stage}-user-pool
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 6
+          RequireLowercase: False
+          RequireNumbers: False
+          RequireSymbols: False
+          RequireUppercase: False
+          TemporaryPasswordValidityDays: 7
+
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      # Generate an app client name based on the stage
+      ClientName: ${self:provider.stage}-user-pool-client
+      UserPoolId:
+        Ref: CognitoUserPool
+      ExplicitAuthFlows:
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_ADMIN_USER_PASSWORD_AUTH
+      PreventUserExistenceErrors: ENABLED
+      GenerateSecret: true
+
+# Print out the Id of the User Pool that is created
+Outputs:
+  UserPoolId:
+    Value:
+      Ref: CognitoUserPool
+    Export:
+      Name: ${self:provider.stage}-UserPoolId
+
+  UserPoolClientId:
+    Value:
+      Ref: CognitoUserPoolClient
+    Export:
+      Name: ${self:provider.stage}-UserPoolClientId

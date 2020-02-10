@@ -7,26 +7,16 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: ap-south-1
-
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  #service wide IAM roles
+  #later add separately for each Lambda
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminGetUser
+      Resource:
+        - Fn::GetAtt:
+            - CognitoUserPool
+            - Arn
 
 plugins:
   - serverless-plugin-include-dependencies
@@ -35,17 +25,22 @@ package:
 #  include: #include doesn't automatically exclude files
   exclude:
     - ./**
+    - node_modules/**/aws-sdk/**
 #  individually: true #keep false for faster deployment during dev
 
 functions:
   router: #route API gateway messages
     handler: src/router/handler.main
-#    include: src/router/**
+    environment:
+      USER_POOL_ID: ap-south-1_hvpAGLaHG
+#      USER_POOL_ID: !Ref CognitoUserPool #use this when deploying
     events:
       - http:
           path: / #URL given to textLocal webhook
           method: POST
-          integration: lambda-proxy
+          async: true
+          integration: lambda
+#          integration: lambda-proxy
           #custom Lambda authorizer for 'basic access authentication'.
           authorizer:
             name: authorizer
@@ -58,14 +53,18 @@ functions:
     environment:
       SMS_API_SECRET: ${param:SMS_API_SECRET}
 
+
 resources:
-  Resources:
-    GatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.WWW-Authenticate: "'Basic'" #this header tells caller about authentication format
-        ResponseType: UNAUTHORIZED
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401' #401 Unauthorized message shown if authentication invalid.
+  - Resources:
+      GatewayResponse:
+        Type: 'AWS::ApiGateway::GatewayResponse'
+        Properties:
+          ResponseParameters:
+            gatewayresponse.header.WWW-Authenticate: "'Basic'" #this header tells caller about authentication format
+          ResponseType: UNAUTHORIZED
+          RestApiId:
+            Ref: 'ApiGatewayRestApi'
+          StatusCode: '401' #401 Unauthorized message shown if authentication invalid.
+
+    # Cognito
+  - ${file(res/cognito-user-pool.yml)}

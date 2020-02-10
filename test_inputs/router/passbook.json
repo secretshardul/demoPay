@@ -1,0 +1,57 @@
+{
+  "body": {
+    "comments": "PASSBOOK",
+    "sender": "911234567891",
+    "test": "true"
+  },
+  "method": "POST",
+  "principalId": "2",
+  "stage": "dev",
+  "cognitoPoolClaims": {
+    "sub": ""
+  },
+  "enhancedAuthContext": {
+    "principalId": "2",
+    "integrationLatency": "27"
+  },
+  "headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate",
+    "Authorization": "Basic Mm1mbV9NKSxXdyEpJkpxI1g5RWtwXk4lam01JFZBOms5QUopQGNedWZuZU4/UksqPng3MldjMz1kNkIzdw==",
+    "Cache-Control": "no-cache",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "IN",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Host": "t7pjrv1ag2.execute-api.ap-south-1.amazonaws.com",
+    "Postman-Token": "f6b2bcc2-c4cb-463f-8399-e52413f3b6e0",
+    "User-Agent": "PostmanRuntime/7.20.1",
+    "Via": "1.1 d393bb8dd334c308e0c61831bedf98e1.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "qKqdTBEVAHRXqObCYh1TCsUCqexad8PyQ9NndmUGqLueakXxpPFNhQ==",
+    "X-Amzn-Trace-Id": "Root=1-5e41256b-6161db9911f6e57a37c08460",
+    "X-Forwarded-For": "103.195.202.165, 130.176.20.82",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "query": {},
+  "path": {},
+  "identity": {
+    "cognitoIdentityPoolId": "",
+    "accountId": "",
+    "cognitoIdentityId": "",
+    "caller": "",
+    "sourceIp": "103.195.202.165",
+    "principalOrgId": "",
+    "accessKey": "",
+    "cognitoAuthenticationType": "",
+    "cognitoAuthenticationProvider": "",
+    "userArn": "",
+    "userAgent": "PostmanRuntime/7.20.1",
+    "user": ""
+  },
+  "stageVariables": {},
+  "requestPath": "/"
+}
