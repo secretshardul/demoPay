@@ -1,6 +1,7 @@
 'use strict';
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({apiVersion: '2016-04-18'});
+const lambda = new AWS.Lambda();
 module.exports.main = async event => {
     /**
      * 1. User pool management: check if number exists in cognito (adminGetUser)
@@ -34,20 +35,33 @@ module.exports.main = async event => {
         if(route === 'REGISTER'){
             //TODO: call register Lambda
             //TODO: register(number)
-            pushLogs(sender,message,"/register");
+            pushLogs(sender,message,'/register');
         }
         else{
             /**
              * Route #2(/registerMessage): Unregistered user sends random message
              * Ask user to register
              */
-            //user not present. Show message to register
-            //call Lambda which sends message
-            //TODO: call message Lambda for sending message which asks user to registers.
-            //TODO: sendMessage(number, registerMessage)
-            pushLogs(sender,message,"/registerMessage");
+            pushLogs(sender,message,'/registerMessage');
+            const params =
+                    {
+                        FunctionName: process.env.SEND_MESSAGE_FUNCTION,
+                        InvocationType: 'Event', //Event for asynchronous, RequestResponse for synchronous
+                        Payload: JSON.stringify({
+                            "message": "Please register with demoPay by entering REGISTER",
+                            "number": sender
+                        })
+                    };
+            try{
+                let data = await lambda.invoke(params).promise();
+                console.log("invoked send SMS Lambda", params);
+                return data;
+            }
+            catch(error) {
+                console.log("failure invoking lambda", error);
+                return error;
+            }
         }
-        return;
     }
     //when user is registered
 
@@ -58,7 +72,7 @@ module.exports.main = async event => {
          */
         //TODO: call message Lambda for browsing catalog
         //TODO: browse(number, messageArray)
-        pushLogs(sender,message,"/browse");
+        pushLogs(sender,message,'/browse');
     }
     else if(route === 'PAY'){
         /**
@@ -66,7 +80,7 @@ module.exports.main = async event => {
          */
         //TODO: call payment Lambda function
         //TODO: pay(number, messageArray)
-        pushLogs(sender,message,"/pay");
+        pushLogs(sender,message,'/pay');
     }
     else if(route === 'PASSBOOK'){
         /**
@@ -74,7 +88,7 @@ module.exports.main = async event => {
          */
         //TODO: call passbook Lambda function
         //TODO: passbook(number)
-        pushLogs(sender,message,"/passbook");
+        pushLogs(sender,message,'/passbook');
     }
     else{
         /**
@@ -83,7 +97,7 @@ module.exports.main = async event => {
          */
         //TODO: call home Lambda function
         //TODO: home(number)
-        pushLogs(sender,message,"/home");
+        pushLogs(sender,message,'/home');
     }
 };
 
@@ -95,9 +109,9 @@ module.exports.main = async event => {
  */
 function pushLogs(sender, message, route) {
     const logMessage = {
-        sender: sender,
-        message: message,
-        route: route
+        'sender': sender,
+        'message': message,
+        'route': route
     };
     console.log(logMessage);
     return logMessage;

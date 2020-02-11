@@ -26,6 +26,7 @@
     "serverless-plugin-include-dependencies": "^4.0.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.614.0"
+    "aws-sdk": "^2.614.0",
+    "axios": "^0.19.2"
   }
 }

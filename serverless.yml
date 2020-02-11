@@ -10,13 +10,20 @@ provider:
   #service wide IAM roles
   #later add separately for each Lambda
   iamRoleStatements:
-    - Effect: Allow
+    - Effect: Allow #for cognito
       Action:
         - cognito-idp:AdminGetUser
       Resource:
         - Fn::GetAtt:
             - CognitoUserPool
             - Arn
+    - Effect: Allow #to invoke SMS sending Lambda
+      Action:
+        - lambda:InvokeFunction
+      Resource: "*" #later add list of functions to be invoked
+
+  environment:
+    SEND_MESSAGE_FUNCTION: ${self:service}-${self:provider.stage}-sendMessage
 
 plugins:
   - serverless-plugin-include-dependencies
@@ -34,6 +41,7 @@ functions:
     environment:
       USER_POOL_ID: ap-south-1_hvpAGLaHG
 #      USER_POOL_ID: !Ref CognitoUserPool #use this when deploying
+
     events:
       - http:
           path: / #URL given to textLocal webhook
@@ -52,6 +60,10 @@ functions:
     environment:
       SMS_API_SECRET: ${param:SMS_API_SECRET}
 
+  sendMessage:
+    handler: src/sendMessage/handler.main
+    environment:
+      TEXTLOCAL_API_KEY: ${param:TEXTLOCAL_API_KEY}
 
 resources:
   - Resources:
