@@ -1,0 +1,2 @@
+register_message: Welcome to DemoPay. Please send "REGISTER" to register.
+home: Welcome to DemoPay. To check your passbook send "PASSBOOK". To browse available services, send "BROWSE". To make payment send "PAY <service code> <amount>".

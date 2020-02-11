@@ -65,6 +65,9 @@ functions:
     environment:
       TEXTLOCAL_API_KEY: ${param:TEXTLOCAL_API_KEY}
 
+  i18n:
+    handler: src/i18n/handler.main
+
 resources:
   - Resources:
       GatewayResponse:
