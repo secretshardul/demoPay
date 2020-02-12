@@ -3,7 +3,7 @@
            "invoke":"दबाएँ 1- (पैसे भेजने के लिए) 2- (पिछले खाते के इतिहास को जानने के लिए) 3- (पिन बदलने के लिए) 4- (अपना विवरण संपादित करने के लिए)",
            "error":"यह एक वैध विकल्प नहीं हैलिए"
         },
-    "engish":{
+    "english":{
            "invoke":"Press 1- (to send money) 2- (to know previous account history) 3- (to change PIN) 4- (to edit your details)",
            "error":"This is not a valid option"
         },

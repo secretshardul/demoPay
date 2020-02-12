@@ -1,6 +1,6 @@
 'use strict';
 const  languagetest= require('./locales/languages.json');
-
+console.log(languagetest.english.invoke);
 module.exports.main = async event => {
     /**Multi language module
      *Read instructions first
