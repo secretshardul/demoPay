@@ -69,7 +69,7 @@ module.exports.main = async event => {
                     };
             try{
                 let data = await lambda.invoke(params).promise();
-                console.log('invoked send SMS Lambda', params);
+                console.log('invoked send SMS Lambda with /registerMessage', params);
                 return data;
             }
             catch(error) {
@@ -110,9 +110,28 @@ module.exports.main = async event => {
          * Route #6 (/home): Display home screen to user
          * Input can be blank or random text
          */
-        //TODO: call home Lambda function
-        //TODO: home(number)
         pushLogs(sender,message,'/home');
+        const params =
+            {
+                FunctionName: process.env.SEND_MESSAGE_FUNCTION,
+                InvocationType: 'Event', //Event for asynchronous, RequestResponse for synchronous
+                Payload: JSON.stringify({
+                    message: 'Welcome to demoPay. You can access services by sending message in the following format:\n'+
+                    '1. Pay: PAY <service code> <amount>\n'+
+                    '2. Browse services: BROWSE\n'+
+                    '3. View passbook: PASSBOOK\n',
+                    number: sender
+                })
+            };
+        try{
+            let data = await lambda.invoke(params).promise();
+            console.log('invoked send SMS Lambda with /home message', params);
+            return data;
+        }
+        catch(error) {
+            console.log('failure invoking lambda', error);
+            return error;
+        }
     }
 };
 
