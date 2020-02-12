@@ -1,6 +1,4 @@
-service: main
-app: demopay
-org: greedyman
+service: mainapp: main-apporg: vishalkk
 
 provider:
   name: aws

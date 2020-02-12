@@ -1,0 +1,22 @@
+{
+    "hindi":{
+           "invoke":"दबाएँ 1- (पैसे भेजने के लिए) 2- (पिछले खाते के इतिहास को जानने के लिए) 3- (पिन बदलने के लिए) 4- (अपना विवरण संपादित करने के लिए)",
+           "error":"यह एक वैध विकल्प नहीं हैलिए"
+        },
+    "engish":{
+           "invoke":"Press 1- (to send money) 2- (to know previous account history) 3- (to change PIN) 4- (to edit your details)",
+           "error":"This is not a valid option"
+        },
+    "germen":{
+        "invoke":"Drücken Sie 1- (um Geld zu senden) 2- (um den vorherigen Kontoverlauf zu kennen) 3- (um die PIN zu ändern) 4- (um Ihre Daten zu bearbeiten)",
+        "error":"Dies ist keine gültige Option"
+        },
+    "marathi":{
+        "invoke":"1- (पैसे पाठविण्यासाठी) दाबा 2- (मागील खात्याचा इतिहास जाणून घेण्यासाठी) 3- (पिन बदलण्यासाठी) 4- (आपले तपशील संपादित करण्यासाठी)",
+        "error":"हा एक वैध पर्याय नाही"
+        },
+    "french":{
+        "invoke":"Appuyez sur 1- (pour envoyer de l'argent) 2- (pour connaître l'historique du compte précédent) 3- (pour changer le code PIN) 4- (pour modifier vos coordonnées)",
+        "error":"Ce n'est pas une option valide"
+    }
+}
