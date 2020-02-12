@@ -13,6 +13,7 @@ provider:
     - Effect: Allow #for cognito
       Action:
         - cognito-idp:AdminGetUser
+        - cognito-idp:AdminCreateUser
       Resource:
         - Fn::GetAtt:
             - CognitoUserPool
@@ -41,6 +42,7 @@ functions:
     environment:
       USER_POOL_ID: ap-south-1_hvpAGLaHG
 #      USER_POOL_ID: !Ref CognitoUserPool #use this when deploying
+      REGISTER_FUNCTION: ${self:service}-${self:provider.stage}-register
 
     events:
       - http:
@@ -64,6 +66,11 @@ functions:
     handler: src/sendMessage/handler.main
     environment:
       TEXTLOCAL_API_KEY: ${param:TEXTLOCAL_API_KEY}
+
+  register:
+    handler: src/register/handler.main
+    environment:
+      USER_POOL_ID: ap-south-1_hvpAGLaHG
 
 resources:
   - Resources:

@@ -43,3 +43,22 @@ Authorization: Basic <Base64('userID:password')>
 | 4  | Invalid number, non-empty message ```sls invoke -f sendMessage -p test_inputs/sendMessage/invalidNumber.json```            | fail     | fail   | success  |
 | 5  | Empty number, non-empty message ```sls invoke -f sendMessage -p test_inputs/sendMessage/emptyNumberjson```                 | fail     | fail   | success  |
 | 6  | Missing number field, non-empty message ```sls invoke -f sendMessage -p test_inputs/sendMessage/missingNumberField.json``` | fail     | fail   | success  |
+
+###4.register
+###Prerequisites
+1. Cognito pool created
+2. ```cognito-idp:AdminCreateUser``` IAM permission
+
+###Test cases
+| No | Test                             | Expected             | Actual               | Comments                                                                                             |
+|----|----------------------------------|----------------------|----------------------|------------------------------------------------------------------------------------------------------|
+| 1  | Unregistered number              | Registration success | Registration success | Success                                                                                              |
+| 2  | Registered number                | Registration failure | Registration failure | Success. Further router makes sure that registered users can't enter this route.                     |
+| 3  | Invalid number of correct format | Registration failure | Registration success | Should not be a problem. Lambda is invoked only when SMS webhook is triggered by valid phone number. |
+| 4  | Number of incorrect format       | Registration failure | Registration failure | Success                                                                                              |
+
+###Integration testing with router
+```shell script
+sls invoke local -f router -p test_inputs/router/register.json
+```
+Success

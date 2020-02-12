@@ -117,3 +117,8 @@ Use **admin flow** for backend.
 
 #URL encoding issue
 Non-enlish characters get encoded which increases size. Eg. ```क्या हाल है``` saved as ```%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B9%E0%A4%BE%E0%A4%B2%20%E0%A4%B9%E0%A5%88```
+
+#NPCI APIs to use
+1. ReqValAddress
+2. ReqListAccount
+3. Pay

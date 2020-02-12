@@ -33,9 +33,24 @@ module.exports.main = async event => {
          * Call lambda which registers user
          */
         if(route === 'REGISTER'){
-            //TODO: call register Lambda
-            //TODO: register(number)
             pushLogs(sender,message,'/register');
+            const params =
+                {
+                    FunctionName: process.env.REGISTER_FUNCTION,
+                    InvocationType: 'Event', //Event for asynchronous, RequestResponse for synchronous
+                    Payload: JSON.stringify({
+                        number: sender
+                    })
+                };
+            try{
+                let data = await lambda.invoke(params).promise();
+                console.log("invoked /register Lambda", params);
+                return data;
+            }
+            catch(error) {
+                console.log("failure invoking /register lambda", error);
+                return error;
+            }
         }
         else{
             /**
@@ -48,17 +63,17 @@ module.exports.main = async event => {
                         FunctionName: process.env.SEND_MESSAGE_FUNCTION,
                         InvocationType: 'Event', //Event for asynchronous, RequestResponse for synchronous
                         Payload: JSON.stringify({
-                            "message": "Please register with demoPay by entering REGISTER",
-                            "number": sender
+                            message: 'Please register with demoPay by entering REGISTER',
+                            number: sender
                         })
                     };
             try{
                 let data = await lambda.invoke(params).promise();
-                console.log("invoked send SMS Lambda", params);
+                console.log('invoked send SMS Lambda', params);
                 return data;
             }
             catch(error) {
-                console.log("failure invoking lambda", error);
+                console.log('failure invoking lambda', error);
                 return error;
             }
         }
