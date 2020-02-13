@@ -44,7 +44,7 @@ Authorization: Basic <Base64('userID:password')>
 | 5  | Empty number, non-empty message ```sls invoke -f sendMessage -p test_inputs/sendMessage/emptyNumberjson```                 | fail     | fail   | success  |
 | 6  | Missing number field, non-empty message ```sls invoke -f sendMessage -p test_inputs/sendMessage/missingNumberField.json``` | fail     | fail   | success  |
 
-###4.register
+##4.register
 ###Prerequisites
 1. Cognito pool created
 2. ```cognito-idp:AdminCreateUser``` IAM permission
@@ -62,3 +62,14 @@ Authorization: Basic <Base64('userID:password')>
 sls invoke local -f router -p test_inputs/router/register.json
 ```
 Success
+
+##5.browse
+###Prerequisites
+1. DynamoDB catalog table with data.
+
+###Test cases
+ | No | Test                                    | Expected                                          | Actual                                            | Comments |
+ |----|-----------------------------------------|---------------------------------------------------|---------------------------------------------------|----------|
+ | 1  | Database table not empty, valid  number | Catalog message generated                         | Catalog message generated                         | Success  |
+ | 2  | Database table empty, valid number      | Catalog message generated but empty               | Catalog message generated but empty               | Success  |
+ | 4  | Number field not present                | Throw error, do not invoke 'sendMessage' function | Throw error, do not invoke 'sendMessage' function | Success  |

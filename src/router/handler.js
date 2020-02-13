@@ -85,9 +85,25 @@ module.exports.main = async event => {
          * Route #3 (/browse): Registered user wants to browse catalog
          * Display message containing service catalog
          */
-        //TODO: call message Lambda for browsing catalog
-        //TODO: browse(number, messageArray)
+        //TODO: retrieve browse message from cache and display directly. Remove 'browse' function.
         pushLogs(sender,message,'/browse');
+        const params =
+            {
+                FunctionName: process.env.BROWSE_FUNCTION,
+                InvocationType: 'Event', //Event for asynchronous, RequestResponse for synchronous
+                Payload: JSON.stringify({
+                    number: sender
+                })
+            };
+        try{
+            let data = await lambda.invoke(params).promise();
+            console.log('invoked send SMS Lambda with /browse message', params);
+            return data;
+        }
+        catch(error) {
+            console.log('failure invoking lambda', error);
+            return error;
+        }
     }
     else if(route === 'PAY'){
         /**

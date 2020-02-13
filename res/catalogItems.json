@@ -1,0 +1,74 @@
+{
+  "main-dev-catalogActive-IVQNKAZIRSRR": [
+    {
+      "PutRequest": {
+        "Item": {
+          "category": { "S": "TV" },
+          "company": {"S": "Dish TV"},
+          "plan": {"S": "cartoon pack"},
+          "serviceCode": {"S": "TVDTCP"},
+          "userCode": {"S": "bill number"},
+          "amount": {"N": "500"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "category": { "S": "TV" },
+          "company": {"S": "Tata Sky"},
+          "plan": {"S": "value pack"},
+          "serviceCode": {"S": "TVTSVP"},
+          "userCode": {"S": "bill number"},
+          "amount": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "category": { "S": "phone" },
+          "company": {"S": "Jio"},
+          "plan": {"S": "4G unlimited"},
+          "serviceCode": {"S": "PHJI4L"},
+          "userCode": {"S": "phone number"},
+          "amount": {"N": "400"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "category": { "S": "phone" },
+          "company": {"S": "Vodafone"},
+          "plan": {"S": "4G 1GB"},
+          "serviceCode": {"S": "PHVO41"},
+          "userCode": {"S": "phone number"},
+          "amount": {"N": "200"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "category": { "S": "power" },
+          "company": {"S": "Tata"},
+          "plan": {"S": "bill payment"},
+          "serviceCode": {"S": "POTABP"},
+          "userCode": {"S": "bill number"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "category": { "S": "power" },
+          "company": {"S": "Reliance"},
+          "plan": {"S": "bill payment"},
+          "serviceCode": {"S": "PORLBP"},
+          "userCode": {"S": "bill number"}
+        }
+      }
+    }
+  ]
+}

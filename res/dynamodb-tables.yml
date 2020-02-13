@@ -1,0 +1,51 @@
+Resources:
+  userTransactions:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions: #can have only primary key fields
+        - AttributeName: user
+          AttributeType: S
+        - AttributeName: transactionID
+          AttributeType: N
+      KeySchema:
+        - AttributeName: user
+          KeyType: HASH
+        - AttributeName: transactionID
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  catalogActive:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: category
+          AttributeType: S
+        - AttributeName: serviceCode
+          AttributeType: S
+      KeySchema:
+        - AttributeName: category
+          KeyType: HASH
+        - AttributeName: serviceCode
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  catalogInactive:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: category
+          AttributeType: S
+        - AttributeName: serviceCode
+          AttributeType: S
+      KeySchema:
+        - AttributeName: category
+          KeyType: HASH
+        - AttributeName: serviceCode
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1

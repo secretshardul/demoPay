@@ -109,6 +109,10 @@ All responses have 200 status code. Error is identified with "code" parameter.
         - Vendor lock in.
 - Lambda: Can find if route exists from database
 Conclusion: Use Lambda for routing
+2. Use separate database table for each catalog category?
+    - In current scheme of common table sort key is 'plan'. So two plans by different service providers can't have same names.
+    - But tables are currently small
+Solution: use serviceCode as sort key because it is unique
 
 #User authentication
 Use **admin flow** for backend.
@@ -116,9 +120,14 @@ Use **admin flow** for backend.
 2. adminCreateUser: in register
 
 #URL encoding issue
-Non-enlish characters get encoded which increases size. Eg. ```क्या हाल है``` saved as ```%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B9%E0%A4%BE%E0%A4%B2%20%E0%A4%B9%E0%A5%88```
+Non-english characters get encoded which increases size. Eg. ```क्या हाल है``` saved as ```%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B9%E0%A4%BE%E0%A4%B2%20%E0%A4%B9%E0%A5%88```
 
 #NPCI APIs to use
 1. ReqValAddress
 2. ReqListAccount
 3. Pay
+
+#Database design
+1. catalogActive: category(hash key), company, plan, serviceCode(sort key), userCode(bill number, phone number etc), amount
+2. catalogInactive: category(hash key), company, plan, serviceCode(sort key), userCode(bill number, phone number etc), amount
+3. userTransactions: user(hash key), transaction-id(sort key), service-code, amount, status(success/fail/refund)
