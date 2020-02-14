@@ -85,6 +85,12 @@ functions:
     environment:
       CATALOGACTIVE_TABLE_NAME: !Ref catalogActive
 
+  pay:
+    handler: src/pay/handler.main
+    environment:
+      CATALOGACTIVE_TABLE_NAME: !Ref catalogActive
+      CATALOGINACTIVE_TABLE_NAME: !Ref catalogInactive
+      USERTRANSACTIONS_TABLE_NAME: !Ref userTransactions
 resources:
   - Resources:
       GatewayResponse:

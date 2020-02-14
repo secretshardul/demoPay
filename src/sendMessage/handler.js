@@ -8,7 +8,7 @@ module.exports.main = async event => {
                 'message': event['message'],
                 'apiKey': process.env.TEXTLOCAL_API_KEY,
                 'numbers': event['number'],
-                'test': true //set as 'true' for testing
+                // 'test': true //set as 'true' for testing
             }
         });
         let data = response.data;//includes failure message returned by Textlocal

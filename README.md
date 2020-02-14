@@ -127,7 +127,20 @@ Non-english characters get encoded which increases size. Eg. ```क्या ह
 2. ReqListAccount
 3. Pay
 
+#ICICI bank APIs
+1. Add account > list accounts
+This API is used to returns customer accounts for given account provider registered with provided mobile number.
+```
+{
+  "seqNumber": "ef1e92b4a01d4618a0eca5fdecc37ff23f3",
+  "MobileNumber": "902890XXXX",
+  "deviceId": "8452165486XXXX",
+  "channelcode": "ImoXXXX",
+  "AccountProvider": "1"
+}
+```
+
 #Database design
 1. catalogActive: category(hash key), company, plan, serviceCode(sort key), userCode(bill number, phone number etc), amount
 2. catalogInactive: category(hash key), company, plan, serviceCode(sort key), userCode(bill number, phone number etc), amount
-3. userTransactions: user(hash key), transaction-id(sort key), service-code, amount, status(success/fail/refund)
+3. userTransactions: user(hash key), transactionId(sort key), serviceCode, amount, status(success/fail/refund)

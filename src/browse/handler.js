@@ -1,6 +1,5 @@
 'use strict';
 const AWS = require('aws-sdk');
-const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({apiVersion: '2016-04-18'});
 const lambda = new AWS.Lambda();
 const dynamodb = new AWS.DynamoDB();
 /**
