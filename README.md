@@ -1,6 +1,27 @@
-# Brief working
+# Brief working 
+Source code for a proposed bill payments system for low end mobiles without internet. It builds upon the [Indian Unified Payments Interface(UPI)](https://en.wikipedia.org/wiki/Unified_Payments_Interface), a payment network comparable to Mastercard. It has two modes of operation:
+1. **Online**: Its web API is used by payment apps like Google Pay. 
+2. **Offline**: Uses [Unstructured Supplementary Service Data(USSD)](https://en.wikipedia.org/wiki/Unstructured_Supplementary_Service_Data) technology. USSD is the two way protocol behind **short codes** used to check cell phone balance. UPI's short code `*99#` can be used to check bank balance and make payments. This facility can be used by any GSM phone with basic cellular connectivity.
+
+Online UPI payments have raced ahead due to value added services like bill payments provided by smartphone apps. DemoPay aims to bring bill payments to non-internet phones. It uses USSD as the payments channel and SMS as the communication channel.
+
 ![](images/2020-02-07-14-36-34.png)
-User registers with demoPay and initiates payment using SMS. demoPay then makes a **UPI collect/pull request** to the user. The user then makes payment using ***99#**. demoPay then forwards the payment to the end utility provider.
+
+![image](https://user-images.githubusercontent.com/49580849/84625602-39563300-af01-11ea-9271-9b97e0e46fc9.png)
+
+This project was pitched in [CIIE Grand Challenge](https://grand-challenge.ciie.co/). Do check out the [pitch deck](https://docs.google.com/presentation/d/1w9cUfRYwfxIA_XNaGBUbHKQaMWeYx-kSoxCZGX06RTA/edit?usp=sharing).
+
+# Tech stack and working
+1. **Two way SMS using Textlocal**: Textlocal provides a programmable API to send SMS. It also reads the SMS sent back by user and passes it to the backend though a webhook.
+2. The app uses a serverless backend running on AWS cloud. It is built with the **Serverless framework**.
+  1. **API gateway**: Acts as a webhook. It reads SMS data sent by Textlocal.
+  2. **Lambda**: Responsible for routing and calling the UPI APIs. It checks if the end user has enough funds and makes a `collect money` request.
+  3. **Cognito**: For user pool management. Since this app is SMS based and not REST API based, a server side approach was needed to manage users. This was done using cognito admin SDK.
+  
+    ```js
+    await cognitoidentityserviceprovider.adminCreateUser(params)
+    ```
+  4. **DynamoDB**: Used to store user and service provider data.
 
 # Navigation structure
 Webhook calls an API gateway endpoint which in turn triggers a lambda. This lambda performs routing using an if-else structure and calls other lambdas.
@@ -114,20 +135,20 @@ Conclusion: Use Lambda for routing
     - But tables are currently small
 Solution: use serviceCode as sort key because it is unique
 
-#User authentication
+# User authentication
 Use **admin flow** for backend.
 1. adminGetUser: in router
 2. adminCreateUser: in register
 
-#URL encoding issue
+# URL encoding issue
 Non-english characters get encoded which increases size. Eg. ```क्या हाल है``` saved as ```%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B9%E0%A4%BE%E0%A4%B2%20%E0%A4%B9%E0%A5%88```
 
-#NPCI APIs to use
+# NPCI APIs to use
 1. ReqValAddress
 2. ReqListAccount
 3. Pay
 
-#ICICI bank APIs
+# ICICI bank APIs
 1. Add account > list accounts
 This API is used to returns customer accounts for given account provider registered with provided mobile number.
 ```
@@ -140,7 +161,7 @@ This API is used to returns customer accounts for given account provider registe
 }
 ```
 
-#Database design
+# Database design
 1. catalogActive: category(hash key), company, plan, serviceCode(sort key), userCode(bill number, phone number etc), amount
 2. catalogInactive: category(hash key), company, plan, serviceCode(sort key), userCode(bill number, phone number etc), amount
 3. userTransactions: user(hash key), transactionId(sort key), serviceCode, amount, status(success/fail/refund)
