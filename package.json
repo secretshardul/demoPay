@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/secretshardul/demoPay#readme",
   "devDependencies": {
-    "serverless-offline": "^5.12.1",
+    "serverless-offline": "^12.0.3",
     "serverless-plugin-include-dependencies": "^4.0.1"
   },
   "dependencies": {
